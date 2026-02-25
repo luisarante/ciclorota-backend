@@ -1,0 +1,13 @@
+import { supabase } from '../config/supabase.js';
+
+export class CheckpointService {
+  async getAllCheckpoints() {
+    const { data, error } = await supabase
+      .from('checkpoints')
+      .select('id, name, description')
+      .order('name');
+
+    if (error) throw new Error('Erro ao buscar checkpoints.');
+    return data;
+  }
+}
