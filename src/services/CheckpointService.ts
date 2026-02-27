@@ -4,7 +4,7 @@ export class CheckpointService {
   async getAllCheckpoints() {
     const { data, error } = await supabase
       .from('checkpoints')
-      .select('id, name, description')
+      .select('id, name, description, latitude, longitude')
       .order('name');
 
     if (error) throw new Error('Erro ao buscar checkpoints.');
