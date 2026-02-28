@@ -15,7 +15,7 @@ export class CertificateController {
       const certificate = await certificateService.issueCertificate(userId);
 
       res.status(201).json({
-        mensagem: 'Parabéns! Certificado da Ciclorota emitido com sucesso.',
+        mensagem: 'Certificado da Ciclorota emitido com sucesso.',
         certificado: certificate
       });
 
