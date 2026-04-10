@@ -1,0 +1,53 @@
+import { Router } from 'express';
+import { requireAdmin, requireAuth } from '../middleware/auth.js';
+import { AdminController } from '../controllers/AdminController.js';
+import { AuthController } from '../controllers/AuthController.js';
+import { CertificateController } from '../controllers/CertificateController.js';
+import { CheckinController } from '../controllers/CheckinController.js';
+import { CheckpointController } from '../controllers/CheckpointController.js';
+import { ProfileController } from '../controllers/ProfileController.js';
+import { ProgressController } from '../controllers/ProgressController.js';
+
+const routes = Router();
+const adminController = new AdminController();
+const authController = new AuthController();
+const checkpointController = new CheckpointController();
+const checkinController = new CheckinController();
+const progressController = new ProgressController();
+const certificateController = new CertificateController();
+const profileController = new ProfileController();
+
+routes.get('/', (request, response) => {
+  response.json({ mensagem: 'Bem-vindo à API do Passaporte da Ciclorota! 🚴‍♂️' });
+});
+
+routes.post('/auth/login', authController.login.bind(authController));
+routes.post('/auth/refresh', authController.refresh.bind(authController));
+routes.get('/auth/me', requireAuth, authController.me.bind(authController));
+
+routes.get('/checkpoints', checkpointController.index.bind(checkpointController));
+
+routes.get('/me/profile', requireAuth, profileController.showMe.bind(profileController));
+routes.put('/me/profile', requireAuth, profileController.updateMe.bind(profileController));
+routes.get('/me/progress', requireAuth, progressController.showMe.bind(progressController));
+routes.post('/me/checkins', requireAuth, checkinController.storeMe.bind(checkinController));
+routes.post('/me/certificates', requireAuth, certificateController.storeMe.bind(certificateController));
+
+routes.get('/admin/overview', requireAdmin, adminController.overview.bind(adminController));
+routes.get('/admin/users', requireAdmin, adminController.users.bind(adminController));
+routes.get('/admin/users/:userId', requireAdmin, adminController.showUser.bind(adminController));
+routes.patch('/admin/users/:userId', requireAdmin, adminController.updateUser.bind(adminController));
+routes.get('/admin/checkins', requireAdmin, adminController.checkins.bind(adminController));
+routes.get('/admin/checkpoints', requireAdmin, checkpointController.adminIndex.bind(checkpointController));
+routes.post('/admin/checkpoints', requireAdmin, checkpointController.store.bind(checkpointController));
+routes.patch('/admin/checkpoints/:checkpointId', requireAdmin, checkpointController.update.bind(checkpointController));
+routes.get('/admin/certificates', requireAdmin, certificateController.adminIndex.bind(certificateController));
+routes.post('/admin/certificates/:userId/issue', requireAdmin, certificateController.adminIssue.bind(certificateController));
+
+routes.post('/checkins', requireAuth, checkinController.store.bind(checkinController));
+routes.get('/progress/:userId', requireAuth, progressController.show.bind(progressController));
+routes.post('/certificates', requireAuth, certificateController.store.bind(certificateController));
+routes.get('/profiles/:userId', requireAuth, profileController.show.bind(profileController));
+routes.put('/profiles/:userId', requireAuth, profileController.update.bind(profileController));
+
+export default routes;
