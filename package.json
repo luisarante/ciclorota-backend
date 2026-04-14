@@ -9,19 +9,18 @@
   "scripts": {
     "dev:api": "npm run dev --workspace @ciclorota/api",
     "dev:admin": "npm run dev --workspace @ciclorota/admin-web",
-    "dev:app-web": "npm run dev --workspace @ciclorota/app-web",
     "smoke:api": "node scripts/api-smoke.mjs",
+    "docker:build:api": "docker build -f apps/api/Dockerfile -t ciclorota-api .",
     "test:api": "npm run test --workspace @ciclorota/api",
     "typecheck:api": "npm run typecheck --workspace @ciclorota/api",
     "typecheck:admin": "npm run typecheck --workspace @ciclorota/admin-web",
-    "typecheck:app-web": "npm run typecheck --workspace @ciclorota/app-web",
-    "typecheck": "npm run typecheck:api && npm run typecheck:admin && npm run typecheck:app-web",
+    "typecheck": "npm run typecheck:api && npm run typecheck:admin",
     "build:api": "npm run build --workspace @ciclorota/api",
     "build:admin": "npm run build --workspace @ciclorota/admin-web",
-    "build:app-web": "npm run build --workspace @ciclorota/app-web",
-    "build": "npm run build:api && npm run build:admin && npm run build:app-web",
+    "build": "npm run build:api && npm run build:admin",
     "verify:backend": "npm run test:api && npm run typecheck:api && npm run build:api",
-    "verify": "npm run verify:backend && npm run typecheck && npm run build",
+    "verify:admin": "npm run typecheck:admin && npm run build:admin",
+    "verify": "npm run verify:backend && npm run verify:admin",
     "test": "npm run test:api && npm run typecheck"
   }
 }

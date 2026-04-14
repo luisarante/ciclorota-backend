@@ -1,10 +1,11 @@
 # Ciclorota Platform
 
-Monorepo preparado para evoluir a plataforma em tres frentes:
+Monorepo preparado para evoluir a plataforma em duas frentes neste repositório:
 - `apps/api`: backend Express + Supabase existente
 - `apps/admin-web`: painel operacional em React + Vite
-- `apps/app-web`: experiencia web do ciclista em React + Vite
 - `packages/shared`: contratos e tipos compartilhados
+
+O app do usuário ficou separado em outro repositório Expo.
 
 ## Estrutura
 
@@ -12,7 +13,6 @@ Monorepo preparado para evoluir a plataforma em tres frentes:
 apps/
   api/
   admin-web/
-  app-web/
 packages/
   shared/
 supabase/
@@ -25,8 +25,8 @@ supabase/
 npm install
 npm run dev:api
 npm run dev:admin
-npm run dev:app-web
 npm run smoke:api
+npm run docker:build:api
 npm run verify:backend
 npm run verify
 npm run typecheck
@@ -42,6 +42,8 @@ npm run build
 - o guia de reconciliação do banco remoto está em `docs/backend-schema-reconciliation.md`
 - o handoff de integração para o repo do frontend está em `docs/frontend-api-handoff.md`
 - o índice central da documentação está em `docs/README.md`
+- o escopo oficial deste repositório está em `docs/repo-scope.md`
+- a documentação de deploy da API está em `docs/api-deploy.md`
 
 ## Ambiente
 
@@ -72,8 +74,8 @@ VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
 ```
 
-- `admin-web` agora autentica direto no Supabase Auth e usa o access token da sessao para chamar a API
-- `app-web` continua podendo evoluir para o mesmo fluxo, mantendo o bearer token como contrato comum
+- `admin-web` autentica direto no Supabase Auth e usa o access token da sessao para chamar a API
+- o app do usuário consome esta API a partir de outro repositório
 
 ## Contrato de autenticacao
 
@@ -123,4 +125,4 @@ VITE_SUPABASE_ANON_KEY=
 - API com CORS configuravel, healthcheck, readycheck e tratamento global para JSON invalido/404
 - testes automatizados cobrindo regras centrais de auth/admin, validacao, CORS e endpoints operacionais basicos
 - `admin-web` alinhado com Supabase Auth nativo, bearer token e operacao administrativa completa
-- `app-web` segue consumindo as rotas protegidas do backend
+- este repo agora representa `backend + admin web`

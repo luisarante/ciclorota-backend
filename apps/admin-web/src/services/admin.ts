@@ -1,0 +1,89 @@
+import type {
+  AdminCertificateIssueResponse,
+  AdminCertificateRecord,
+  AdminCertificatesQuery,
+  AdminCheckpoint,
+  AdminCheckpointInput,
+  AdminCheckpointPatchInput,
+  AdminCheckinsQuery,
+  AdminOverviewResponse,
+  AdminRecentCheckin,
+  AdminUserPatchInput,
+  AdminUserRecord,
+  AdminUsersQuery
+} from '@ciclorota/shared';
+import { requestJson } from '../lib/api';
+import { buildCertificatesQueryString, buildCheckinsQueryString, buildUsersQueryString } from '../lib/query';
+
+export function fetchAdminOverview(accessToken: string) {
+  return requestJson<AdminOverviewResponse>('/admin/overview', { accessToken });
+}
+
+export function fetchAdminUsers(accessToken: string, query: AdminUsersQuery) {
+  return requestJson<AdminUserRecord[]>(`/admin/users?${buildUsersQueryString(query)}`, { accessToken });
+}
+
+export function fetchAdminUser(accessToken: string, userId: string) {
+  return requestJson<AdminUserRecord>(`/admin/users/${userId}`, { accessToken });
+}
+
+export function fetchAdminCheckpoints(accessToken: string, options: { page: number; limit: number }) {
+  return requestJson<AdminCheckpoint[]>(`/admin/checkpoints?page=${options.page}&limit=${options.limit}`, {
+    accessToken
+  });
+}
+
+export function fetchAdminCheckins(accessToken: string, query: AdminCheckinsQuery) {
+  return requestJson<AdminRecentCheckin[]>(`/admin/checkins?${buildCheckinsQueryString(query)}`, {
+    accessToken
+  });
+}
+
+export function fetchAdminCertificates(accessToken: string, query: AdminCertificatesQuery) {
+  return requestJson<AdminCertificateRecord[]>(`/admin/certificates?${buildCertificatesQueryString(query)}`, {
+    accessToken
+  });
+}
+
+export async function fetchAdminDirectories(accessToken: string, options: { usersLimit: number; checkpointsLimit: number }) {
+  const [usersPayload, checkpointsPayload] = await Promise.all([
+    fetchAdminUsers(accessToken, { page: 1, limit: options.usersLimit }),
+    fetchAdminCheckpoints(accessToken, { page: 1, limit: options.checkpointsLimit })
+  ]);
+
+  return {
+    users: usersPayload.data,
+    checkpoints: checkpointsPayload.data
+  };
+}
+
+export function updateAdminUser(accessToken: string, userId: string, payload: AdminUserPatchInput) {
+  return requestJson<AdminUserRecord>(`/admin/users/${userId}`, {
+    method: 'PATCH',
+    accessToken,
+    body: payload
+  });
+}
+
+export function createAdminCheckpoint(accessToken: string, payload: AdminCheckpointInput) {
+  return requestJson<AdminCheckpoint>('/admin/checkpoints', {
+    method: 'POST',
+    accessToken,
+    body: payload
+  });
+}
+
+export function updateAdminCheckpoint(accessToken: string, checkpointId: string, payload: AdminCheckpointPatchInput) {
+  return requestJson<AdminCheckpoint>(`/admin/checkpoints/${checkpointId}`, {
+    method: 'PATCH',
+    accessToken,
+    body: payload
+  });
+}
+
+export function issueAdminCertificate(accessToken: string, userId: string) {
+  return requestJson<AdminCertificateIssueResponse>(`/admin/certificates/${userId}/issue`, {
+    method: 'POST',
+    accessToken
+  });
+}

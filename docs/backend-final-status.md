@@ -2,7 +2,7 @@
 
 ## Status atual
 
-O backend deste repositório está pronto para servir como base estável para o repo do frontend.
+Este repositório agora representa a base de `backend + admin web` da Ciclorota.
 
 ## O que está fechado
 
@@ -33,6 +33,8 @@ O backend deste repositório está pronto para servir como base estável para o 
 - smoke test de API
 - checklist de produção
 - handoff para integração no frontend
+- escopo do repositório formalizado
+- base para CI e deploy da API
 
 ## Verificações já executadas
 
@@ -52,6 +54,8 @@ SMOKE_API_URL=http://127.0.0.1:3336 node scripts/api-smoke.mjs
 - [backend-database-contract.md](/Volumes/ssd_kayke/ciclorota-backend/docs/backend-database-contract.md)
 - [backend-schema-reconciliation.md](/Volumes/ssd_kayke/ciclorota-backend/docs/backend-schema-reconciliation.md)
 - [backend-production-checklist.md](/Volumes/ssd_kayke/ciclorota-backend/docs/backend-production-checklist.md)
+- [repo-scope.md](/Volumes/ssd_kayke/ciclorota-backend/docs/repo-scope.md)
+- [api-deploy.md](/Volumes/ssd_kayke/ciclorota-backend/docs/api-deploy.md)
 
 ## O que ainda é melhoria futura, não bloqueio atual
 
@@ -62,4 +66,4 @@ SMOKE_API_URL=http://127.0.0.1:3336 node scripts/api-smoke.mjs
 
 ## Conclusão
 
-Para o escopo atual de produto, o backend está documentado, validado e pronto para handoff ao frontend.
+Para o escopo atual de produto, a base `backend + admin web` está documentada, validada e pronta para continuidade nesta branch.

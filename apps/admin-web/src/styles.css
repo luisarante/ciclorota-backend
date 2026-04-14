@@ -264,6 +264,9 @@ button:disabled {
 }
 
 .view-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid rgba(23, 53, 44, 0.1);
   border-radius: 999px;
   padding: 10px 16px;

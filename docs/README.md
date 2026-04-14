@@ -6,6 +6,8 @@
 
 - [backend-final-status.md](/Volumes/ssd_kayke/ciclorota-backend/docs/backend-final-status.md)
 - [backend-production-checklist.md](/Volumes/ssd_kayke/ciclorota-backend/docs/backend-production-checklist.md)
+- [repo-scope.md](/Volumes/ssd_kayke/ciclorota-backend/docs/repo-scope.md)
+- [api-deploy.md](/Volumes/ssd_kayke/ciclorota-backend/docs/api-deploy.md)
 
 ### API e integração
 
@@ -19,13 +21,16 @@
 
 ## Ordem sugerida de leitura
 
-Para o time de frontend:
-1. `frontend-api-handoff.md`
-2. `api-reference.md`
-3. `backend-production-checklist.md`
+Para o time do admin web:
+1. `repo-scope.md`
+2. `frontend-api-handoff.md`
+3. `api-reference.md`
+4. `backend-production-checklist.md`
 
 Para o time de backend/operação:
-1. `backend-final-status.md`
-2. `backend-production-checklist.md`
-3. `backend-database-contract.md`
-4. `backend-schema-reconciliation.md`
+1. `repo-scope.md`
+2. `backend-final-status.md`
+3. `backend-production-checklist.md`
+4. `api-deploy.md`
+5. `backend-database-contract.md`
+6. `backend-schema-reconciliation.md`
